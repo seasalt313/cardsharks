@@ -83,6 +83,9 @@ function printCards(deck) {
 
     higher(randomCard);
     lower(randomCard);
+
+    deck.splice(deck.indexOf(randomCard, 1));
+    console.log(deck);
 }
 
 
@@ -99,13 +102,11 @@ function higher(randomCard) {
             printCards(deck);
             randomCardVal = randomCard.value;
 
-        } else if (randomCardVal > randomCard.value) {
-            console.log("LOST THE LAST ROUND, the new card was lower");
-            window.alert("You lost! The new card was lower. Refresh to play again.");
+        } else if (randomCardVal > randomCard.value || randomCardVal === randomCard.value) {
+            console.log("LOST THE LAST ROUND, the new card was lower or equal");
+            window.alert("You lost! The new card was lower or equal. Refresh to play again.");
 
             return false;
-        } else if (randomCardVal === randomCard.value) {
-          return false;
         }
     });
 
@@ -118,15 +119,9 @@ function lower(randomCard) {
     let lowerbtn = document.querySelector("#lower");
 
     lowerbtn.addEventListener("click", function() {
-        if (randomCardVal > randomCard.value) {
-            console.log("LOST THE LAST ROUND! The new card is higher");
-            window.alert("You lost. The new card was higher. Press OK to play again.");
-            let r = confirm("Play again?")
-            if (r == true) {
-              window.addEventListener("load")
-            } else {
-              console.log("cancelled");
-            }
+        if (randomCardVal > randomCard.value || randomCardVal === randomCard.value) {
+            console.log("LOST THE LAST ROUND! The new card is higher or equal");
+            window.alert("You lost. The new card was higher or equal. Refresh page to play again.");
             return false;
         } else if (randomCardVal < randomCard.value) {
             console.log("YOU WON THE LAST ROUND, the new card was lower");
